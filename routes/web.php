@@ -13,15 +13,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('landing');
-});
 
-Route::get('/landing', function () {
-    return view('landing');
-});
+
+
+    Route::get('/', function () {
+        return view('landing');
+    });
+
+
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix'=>LaravelLocalization::setLocale(),'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]],function (){
+
+Route::group(['prefix'=>'offer'],function (){
+
+        Route::get('store',"OfferController@store");
+        Route::get('offers','OfferController@create');
+        Route::post('store','OfferController@store')->name('store');
+    });
+
+});
 

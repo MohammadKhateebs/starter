@@ -30,7 +30,19 @@
                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Portfolio</a></li>
                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a></li>
                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contact</a></li>
-                @if (Route::has('login'))
+                <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ url('/offer/offers') }}">Add Offer</a></li>
+
+
+                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                        <li class="nav-item mx-0 mx-lg-1">
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                {{ $properties['native'] }}
+                            </a>
+                        </li>
+                    @endforeach
+
+
+            @if (Route::has('login'))
                         @auth
                         <li class="nav-item mx-0 mx-lg-1"> <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ url('/home') }}">Home</a></li>
                         @else
@@ -47,6 +59,7 @@
     </div>
 </nav>
 <!-- Masthead-->
+
 <header class="masthead bg-primary text-white text-center">
     <div class="container d-flex align-items-center flex-column">
         <!-- Masthead Avatar Image-->
