@@ -65,7 +65,7 @@
     </style>
 </head>
 <body>
-<div class="flex-center position-ref full-height">
+<div class="flex-center position-ref " style="height: 100px;">
     @if (Route::has('login'))
         <div class="top-right links">
             @auth
@@ -77,7 +77,6 @@
                     <a href="{{ route('register') }}">{{__('message.Register')}}</a>
                 @endif
             @endauth
-                <a href="{{ route('showOffer') }}" >{{__('message.Show All Offer')}}</a>
 
                 @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                         <a  rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
@@ -87,39 +86,34 @@
                 @endforeach
         </div>
     @endif
+</div>
+    <div class="content ">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">{{__('message.id')}}</th>
+                <th scope="col">{{__('message.offer name')}}</th>
+                <th scope="col">{{__('message.Offer Price')}}</th>
+                <th scope="col">{{__('message.Opration')}}</th>
 
-    <div class="content">
-        <div class="title m-b-md">
-            {{__('message.Add Offer')}}
-        </div>
-        @if(Session::has('succ'))
-            <div class="alert alert-success" role="alert">
-                {{Session::get('succ')}}
-            </div>
-        @endif
-        <br>
-        <form method="POST" action="{{route('store')}}">
-            @csrf
-            <div class="mb-3">
-                <label for="offername" class="form-label">{{__('message.offer name')}}</label>
-                <input type="text" class="form-control" name="name">
-                @error('name')
-                <small class="form-text text-danger">{{$message}}</small>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="offerprice" class="form-label">{{__('message.Offer Price')}}</label>
-                <input type="text" class="form-control" name="price">
-                @error('price')
-                <small class="form-text text-danger">{{$message}}</small>
-                @enderror
-            </div>
 
-            <button type="submit" class="btn btn-primary">{{__('message.Add Offer')}}</button>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($offers as $offer)
+            <tr>
+                <td>{{$offer->id}}</td>
+                <td>{{$offer->name}}</td>
+                <td>{{$offer->price}}</td>
+                <td><button class="btn btn-success"><a class="text-white" href="{{url('offer/edit/'.$offer->id )}}">{{__('message.Edit')}}</a></button></td>
 
-        </form>
+            </tr>
+            @endforeach
+
+            </tbody>
+        </table>
 
     </div>
-</div>
+
 </body>
 </html>

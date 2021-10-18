@@ -90,7 +90,7 @@
 
     <div class="content">
         <div class="title m-b-md">
-            {{__('message.Add Offer')}}
+            {{__('message.Edit Offer')}}
         </div>
         @if(Session::has('succ'))
             <div class="alert alert-success" role="alert">
@@ -98,24 +98,24 @@
             </div>
         @endif
         <br>
-        <form method="POST" action="{{route('store')}}">
+        <form method="POST" action="{{route('offerUpdate',$offer->id)}}">
             @csrf
             <div class="mb-3">
                 <label for="offername" class="form-label">{{__('message.offer name')}}</label>
-                <input type="text" class="form-control" name="name">
+                <input type="text" class="form-control"  value="{{$offer->name}}" name="name">
                 @error('name')
                 <small class="form-text text-danger">{{$message}}</small>
                 @enderror
             </div>
             <div class="mb-3">
                 <label for="offerprice" class="form-label">{{__('message.Offer Price')}}</label>
-                <input type="text" class="form-control" name="price">
+                <input type="text" class="form-control" value="{{$offer->price}}" name="price">
                 @error('price')
                 <small class="form-text text-danger">{{$message}}</small>
                 @enderror
             </div>
 
-            <button type="submit" class="btn btn-primary">{{__('message.Add Offer')}}</button>
+            <button type="submit" class="btn btn-primary">{{__('message.Edit')}}</button>
 
         </form>
 

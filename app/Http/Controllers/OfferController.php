@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OfferRequest;
 use App\Models\Offer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -9,19 +10,14 @@ use Illuminate\Support\Facades\Validator;
 class OfferController extends Controller
 {
 
-    public function store(Request $request)
+    public function store(OfferRequest $request)
     {
-        $message = $this->getMessage();
-        $ruls = $this->getRuls();
-        $validator = Validator::make($request->all(), $ruls, $message);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInputs($request->all());
-        }
+
         Offer::create([
             "name" => $request->name,
             "price" => $request->price,
         ]);
-        return redirect()->back()->with(['succ'=>'تم ادراد الاوفر']);
+        return redirect()->back()->with(['succ' => __('message.Offer Add Done')]);
 
     }
 
@@ -30,25 +26,26 @@ class OfferController extends Controller
 
         return view('offers.offer');
     }
+    public function getAllOffer(){
+        $offers=Offer::select('id','name','price')->get();
 
-
-    protected function getMessage()
-    {
-        return $message = [
-            'name.required' => 'الاسم مطلوب',
-            'price.required' =>'السعر مطلوب',
-
-        ];
+        return view('offers.alloffer',compact('offers'));
     }
 
-    protected function getRuls()
-    {
-        return $ruls = [
-            'name' => 'required',
-            'price' => 'required',
-
-        ];
+    public function edit($id_offer){
+      //  Offer::findOrFail($id_offer);
+        $offer=Offer::find($id_offer);
+        if(!$offer) return redirect()->back();
+        $offer=Offer::select('id','name','price')->find($id_offer);
+        return view('offers.edit',compact('offer'));
 
     }
+    public function update(OfferRequest $request,$id_offer){
 
+        $offer=Offer::find($id_offer);
+        if(!$offer) return redirect()->back();
+
+        $offer->update($request->all());
+ return  redirect()->back()->with(['succ' => __('message.Offer Edit Done')]);
+    }
 }

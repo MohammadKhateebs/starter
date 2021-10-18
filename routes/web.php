@@ -28,11 +28,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix'=>LaravelLocalization::setLocale(),'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]],function (){
 
 Route::group(['prefix'=>'offer'],function (){
-
-        Route::get('store',"OfferController@store");
         Route::get('offers','OfferController@create');
         Route::post('store','OfferController@store')->name('store');
-    });
+        Route::get('edit/{id_offer}','OfferController@edit');
+        Route::post('update/{id_offer}','OfferController@update')->name('offerUpdate');
+    Route::get('alloffer','OfferController@getAllOffer')->name('showOffer');
+
+});
 
 });
 
