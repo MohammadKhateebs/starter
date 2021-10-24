@@ -23,13 +23,16 @@ return [
     'Offer Price' => 'Offer Price',
     'The name field is required' => 'The name field is required',
     'The price field is required' => 'The price field is required',
-    'id' =>'id',
+    'id' => 'id',
     'Show All Offer' => 'Show All Offer',
-    'Opration'=>'Opration',
-    'Edit'=>'Edit',
-    'Offer Edit Done'=>'Offer Edit Done',
+    'Opration' => 'Opration',
+    'Edit' => 'Edit',
+    'Offer Edit Done' => 'Offer Edit Done',
+    'photos' => 'photos',
     'Edit Offer'=>'Edit Offer',
+    'Add Photo' => 'Add Photo',
+    'Delete'=>'Delete',
 
-
+    'Offer Delete Done'=>'Offer Delete Done',
 
 ];

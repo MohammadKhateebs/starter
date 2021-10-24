@@ -98,12 +98,19 @@
             </div>
         @endif
         <br>
-        <form method="POST" action="{{route('store')}}">
+        <form method="POST" action="{{route('store')}}" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="offername" class="form-label">{{__('message.offer name')}}</label>
                 <input type="text" class="form-control" name="name">
                 @error('name')
+                <small class="form-text text-danger">{{$message}}</small>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="photo" class="form-label">{{__('message.Add Photo')}}</label>
+                <input type="file" class="form-control" name="photo">
+                @error('photo')
                 <small class="form-text text-danger">{{$message}}</small>
                 @enderror
             </div>

@@ -76,9 +76,10 @@
                 @if (Route::has('register'))
                     <a href="{{ route('register') }}">{{__('message.Register')}}</a>
                 @endif
+
             @endauth
                 <a href="{{ route('showOffer') }}" >{{__('message.Show All Offer')}}</a>
-
+                <a href="">Number show({{$offer->viewer}})</a>
                 @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                         <a  rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                             {{ $properties['native'] }}

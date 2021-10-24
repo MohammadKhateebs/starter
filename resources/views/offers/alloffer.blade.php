@@ -88,12 +88,19 @@
     @endif
 </div>
     <div class="content ">
+        @if(Session::has('valid'))
+            <div class="alert alert-danger" role="alert">
+                {{Session::get('valid')}}
+            </div>
+        @endif
+        <br>
         <table class="table">
             <thead>
             <tr>
                 <th scope="col">{{__('message.id')}}</th>
                 <th scope="col">{{__('message.offer name')}}</th>
                 <th scope="col">{{__('message.Offer Price')}}</th>
+                <th scope="col">{{__('message.photos')}}</th>
                 <th scope="col">{{__('message.Opration')}}</th>
 
 
@@ -105,7 +112,9 @@
                 <td>{{$offer->id}}</td>
                 <td>{{$offer->name}}</td>
                 <td>{{$offer->price}}</td>
-                <td><button class="btn btn-success"><a class="text-white" href="{{url('offer/edit/'.$offer->id )}}">{{__('message.Edit')}}</a></button></td>
+                <td><img style="height:70px;width:70px;margin: 6px;" src="{{asset('imegs/offers/'.$offer->photo)}}" alt="photo"></td>
+                <td><button class="btn btn-success"><a class="text-white" href="{{url('offer/edit/'.$offer->id )}}">{{__('message.Edit')}}</a></button>
+               <button class="btn btn-danger"><a class="text-white" href="{{url('offer/delete/'.$offer->id )}}">{{__('message.Delete')}}</a></button></td>
 
             </tr>
             @endforeach

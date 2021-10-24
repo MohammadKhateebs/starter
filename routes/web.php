@@ -15,23 +15,39 @@ use Illuminate\Support\Facades\Route;
 
 
 
+Route::group(['prefix'=>LaravelLocalization::setLocale(),'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]],function (){
 
     Route::get('/', function () {
         return view('landing');
     });
+    Route::get('/home', 'HomeController@index')->name('home');
 
-
-
+});
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::group(['prefix'=>LaravelLocalization::setLocale(),'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]],function (){
 
+Route::group(['prefix'=>LaravelLocalization::setLocale(),'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]],function (){
+//ajax
+
+    Route::group(['prefix'=>'ajaxoffer'],function (){
+        Route::get('offers','AjaxController@create')->name('ajaxOffer');
+        Route::post('store','AjaxController@store')->name('storeajax');
+        Route::get('alloffer','AjaxController@getAllOffer')->name('showOfferAjax');
+        Route::post('delete','AjaxController@delete')->name('deletajax');
+        Route::get('edit/{id_offer}','AjaxController@edit');
+        Route::post('update','AjaxController@update')->name('ajax.offers.update');
+
+
+
+
+    });
 Route::group(['prefix'=>'offer'],function (){
         Route::get('offers','OfferController@create');
         Route::post('store','OfferController@store')->name('store');
         Route::get('edit/{id_offer}','OfferController@edit');
-        Route::post('update/{id_offer}','OfferController@update')->name('offerUpdate');
+    Route::get('delete/{id_offer}','OfferController@delete');
+
+    Route::post('update/{id_offer}','OfferController@update')->name('offerUpdate');
     Route::get('alloffer','OfferController@getAllOffer')->name('showOffer');
 
 });
